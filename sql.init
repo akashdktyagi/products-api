@@ -1,0 +1,10 @@
+CREATE TABLE products
+(
+    id int(11) NOT NULL AUTO_INCREMENT,
+    userID int(11) NOT NULL,
+    name varchar(100) NOT NULL,
+    description varchar(100) NOT NULL,
+    expectedPrice varchar(100) NOT NULL,
+    quantity varchar(100) NOT NULL,
+    PRIMARY KEY (id)
+);
