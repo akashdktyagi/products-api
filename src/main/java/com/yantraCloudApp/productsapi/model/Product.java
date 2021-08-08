@@ -8,7 +8,7 @@ import org.springframework.data.annotation.Id;
 @Data
 public class Product {
     @Id
-    Integer id;
+    String id;
 
     Integer userID;
     String name;
