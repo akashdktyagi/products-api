@@ -1,2 +1,2 @@
-# submit-product-api
+# products-api
 Products to sell
