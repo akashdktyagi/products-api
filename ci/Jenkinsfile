@@ -4,7 +4,6 @@ pipeline {
   stages {
     stage('build') {
 
-
       steps {
         sh 'mvn clean package --no-transfer-progress'
       }
