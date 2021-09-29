@@ -10,6 +10,6 @@ public interface ProductsRepository extends MongoRepository<Product,Integer> {
 //    public Product findByFirstName(String firstName);
 //    public List<Product> findByLastName(String lastName);
 
-      public Product findByProductID(String productID);
+      public Product findById(String productID);
 
 }

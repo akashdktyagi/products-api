@@ -17,6 +17,7 @@ import javax.validation.constraints.Min;
 import java.util.List;
 import java.util.UUID;
 
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController
 @RequestMapping("/")
 @Log4j2
@@ -30,7 +31,7 @@ public class ProductResource {
     @PostMapping("/insertProduct")
     public Product createProductMongo(@RequestBody Product product){
         log.debug("Create product: "+ product);
-        product.setProductID(generateUUID());
+        product.setId(generateUUID());
         Product p = productsRepository.insert(product);
         return p;
     }

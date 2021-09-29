@@ -31,7 +31,7 @@ class RunTest {
 	}
 	@Test
 	void testCreateProduct() {
-		Product product = Product.builder().withProductID("1").withDescription("temp").withName("tempName").withUserID(89).withExpectedPrice("12").withQuantity("12").build();
+		Product product = Product.builder().withId("1").withDescription("temp").withName("tempName").withPrice("12").withQuantity("12").build();
 		Mockito.when(productsRepository.insert(any(Product.class))).then(returnsFirstArg());
 
 		Product result = productResource.createProductMongo(product);
@@ -41,7 +41,7 @@ class RunTest {
 
 	@Test
 	void testFindAllProducts() {
-		Product product = Product.builder().withProductID("1").withDescription("temp").withName("tempName").withUserID(89).withExpectedPrice("12").withQuantity("12").build();
+		Product product = Product.builder().withId("1").withDescription("temp").withName("tempName").withPrice("12").withQuantity("12").build();
 		Mockito.when(productsRepository.findAll()).thenReturn(Lists.newArrayList(product));
 
 		List<Product> resultList = productResource.getProduct("3",1,2);

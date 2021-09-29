@@ -10,11 +10,19 @@ import org.springframework.data.annotation.Id;
 @Builder(setterPrefix = "with")
 public class Product {
     @Id
-    String productID;
-
-    Integer userID;
+    String id;
+    String title;
+//    Integer userID;
     String name;
     String description;
-    String expectedPrice;
+    String price;
     String quantity;
+    String ratings;
+    String reviews;
+
+//    isAddedToCart: false,
+//    isAddedBtn: false,
+//    isFavourite: false,
 }
+
+
