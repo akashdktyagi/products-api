@@ -1,0 +1,18 @@
+pipeline {
+  agent any
+
+  environment {
+
+  }
+
+  stages {
+    stage('build') {
+
+
+      steps {
+        sh 'mvn clean package --no-transfer-progress'
+      }
+    }
+
+  }
+}
