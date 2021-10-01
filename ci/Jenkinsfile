@@ -9,7 +9,7 @@ pipeline {
       }
     stage('build') {
       steps {
-        sh 'mvn clean package --no-transfer-progress'
+        sh 'mvn clean install --no-transfer-progress'
       }
     }
 
