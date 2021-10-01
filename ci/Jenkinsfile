@@ -2,13 +2,12 @@ pipeline {
   agent any
 
   stages {
-          stage('Build Docker Image'){
-              steps {
-                  sh (script: 'docker images -a')
-               }
-          }
+      stage('Build Docker Image'){
+          steps {
+              sh (script: 'docker images -a')
+           }
+      }
     stage('build') {
-
       steps {
         sh 'mvn clean package --no-transfer-progress'
       }
