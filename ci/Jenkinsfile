@@ -9,7 +9,10 @@ pipeline {
       }
     stage('build') {
       steps {
-        sh 'mvn clean install --no-transfer-progress'
+      withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'username', usernameVariable: 'password')]) {
+         sh 'mvn clean install --no-transfer-progress -Djib.to.auth.username=$username -Djib.to.auth.password=$password'
+      }
+
       }
     }
 
