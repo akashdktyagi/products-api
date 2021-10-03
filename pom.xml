@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.yantraCloudApp</groupId>
-	<artifactId>submit-product-api</artifactId>
+	<artifactId>products-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>submit-product-api</name>
-	<description>Api to submit the Items by Sellers</description>
+	<name>products-api</name>
+	<description>Products API</description>
 	<properties>
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
