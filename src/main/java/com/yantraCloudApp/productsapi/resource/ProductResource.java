@@ -1,5 +1,6 @@
 package com.yantraCloudApp.productsapi.resource;
 
+import com.yantraCloudApp.productsapi.exception.ProductNotFoundException;
 import com.yantraCloudApp.productsapi.model.Product;
 import com.yantraCloudApp.productsapi.repository.ProductsRepository;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.websocket.server.PathParam;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
@@ -28,7 +31,7 @@ public class ProductResource {
     public ProductResource(ProductsRepository productsRepository){
         this.productsRepository = productsRepository;
     }
-    @PostMapping("/insertProduct")
+    @PostMapping("/product")
     public Product createProductMongo(@RequestBody Product product){
         log.debug("Create product: "+ product);
         product.setId(generateUUID());
@@ -36,7 +39,19 @@ public class ProductResource {
         return p;
     }
 
-    @GetMapping("/getProduct")
+    @DeleteMapping("/product/{id}")
+    public void deleteProduct(@PathVariable String id) throws Exception {
+        log.debug("Delete product with id: "+ id);
+
+        Optional<Product> product = Optional.ofNullable(productsRepository.findById(id));
+        if (product.isEmpty()){
+            throw new ProductNotFoundException("Product is Not Found");
+        }
+        productsRepository.deleteById(id);
+
+    }
+
+    @GetMapping("/product")
     public List<Product> getProduct(
             @Parameter(in = ParameterIn.QUERY, description = "pass an optional search string for looking up product with Product Name as" , schema=@Schema())
             @Valid
