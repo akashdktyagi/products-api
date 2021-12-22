@@ -64,12 +64,6 @@ public class ProductResource {
         return p;
 
 
-//        Optional<Product> product = Optional.ofNullable(productsRepository.findById(id));
-//        if (product.isEmpty()){
-//            throw new ProductNotFoundException("Product can not be found with Id: " + id);
-//        }
-//        productsRepository.deleteById(id);
-
     }
 
     @GetMapping("/product")

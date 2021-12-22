@@ -14,7 +14,8 @@ pipeline {
     stage('Build and Generate Docker Image') {
       steps {
       withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'password', usernameVariable: 'username')]) {
-         sh 'mvn clean install --no-transfer-progress -DskipTests -Djib.to.auth.username=$username -Djib.to.auth.password=$password'
+//          sh 'mvn clean install --no-transfer-progress -DskipTests -Djib.to.auth.username=$username -Djib.to.auth.password=$password'
+          sh 'mvn clean install --no-transfer-progress -Djib.to.auth.username=$username -Djib.to.auth.password=$password'
       }
 
       }
