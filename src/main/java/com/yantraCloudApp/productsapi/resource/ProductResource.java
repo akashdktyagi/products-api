@@ -45,9 +45,30 @@ public class ProductResource {
 
         Optional<Product> product = Optional.ofNullable(productsRepository.findById(id));
         if (product.isEmpty()){
-            throw new ProductNotFoundException("Product is Not Found");
+            throw new ProductNotFoundException("Product can not be found with Id: " + id);
         }
         productsRepository.deleteById(id);
+
+    }
+
+    @PutMapping("/product/{id}")
+    public Product updateProduct(@RequestBody Product productToBeUpdated, @PathVariable String id) throws Exception {
+        log.debug("Update product with details: "+ productToBeUpdated);
+        Optional<Product> productOriginal = Optional.ofNullable(productsRepository.findById(id));
+        if (productOriginal.isEmpty()){
+            throw new ProductNotFoundException("Product can not be found with Id: " + id + " Can not update.");
+        }
+        productToBeUpdated.setId(id);
+
+        Product p = productsRepository.save(productToBeUpdated);
+        return p;
+
+
+//        Optional<Product> product = Optional.ofNullable(productsRepository.findById(id));
+//        if (product.isEmpty()){
+//            throw new ProductNotFoundException("Product can not be found with Id: " + id);
+//        }
+//        productsRepository.deleteById(id);
 
     }
 
