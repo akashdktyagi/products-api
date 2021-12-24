@@ -2,12 +2,12 @@ pipeline {
     agent any
     stages{
 
-        stage('temp'){
-            steps {
-                echo "$SONAR_STAGE"
-                echo "$RELEASE_IMAGE"
-            }
-        }
+//         stage('temp'){
+//             steps {
+//                 echo "$SONAR_STAGE"
+//                 echo "$RELEASE_IMAGE"
+//             }
+//         }
 
         stage('Sonar Analysis'){
             when{
