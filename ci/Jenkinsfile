@@ -2,6 +2,13 @@ pipeline {
   agent any
 
   stages {
+        stage('Set Up Parameters') {
+            script{
+            properties([parameters([booleanParam(defaultValue: true, name: 'STAGE_SONAR'), booleanParam(defaultValue: false, name: 'STAGE_DEPLOY')]), pipelineTriggers([githubPush()])])
+
+            }
+        }
+
       stage('Sonar Analysis'){
 
           steps {

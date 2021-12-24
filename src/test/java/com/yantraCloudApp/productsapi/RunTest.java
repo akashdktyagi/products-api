@@ -1,5 +1,6 @@
 package com.yantraCloudApp.productsapi;
 
+import com.yantraCloudApp.productsapi.exception.ProductNotFoundException;
 import com.yantraCloudApp.productsapi.model.Product;
 import com.yantraCloudApp.productsapi.repository.ProductsRepository;
 import com.yantraCloudApp.productsapi.resource.ProductResource;
@@ -12,6 +13,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.ThrowableAssert.catchThrowable;
 import static org.mockito.Mockito.*;
 import static org.mockito.AdditionalAnswers.*;
 
@@ -35,8 +39,8 @@ class RunTest {
 		Mockito.when(productsRepository.insert(any(Product.class))).then(returnsFirstArg());
 
 		Product result = productResource.createProductMongo(product);
-		Assertions.assertThat(result).isNotNull();
-		Assertions.assertThat(result).isEqualTo(product);
+		assertThat(result).isNotNull();
+		assertThat(result).isEqualTo(product);
 	}
 
 	@Test
@@ -45,12 +49,12 @@ class RunTest {
 		Mockito.when(productsRepository.findAll()).thenReturn(Lists.newArrayList(product));
 
 		List<Product> resultList = productResource.getProduct("3",1,2);
-		Assertions.assertThat(resultList).isNotNull();
-		Assertions.assertThat(resultList).isEqualTo(Lists.newArrayList(product));
+		assertThat(resultList).isNotNull();
+		assertThat(resultList).isEqualTo(Lists.newArrayList(product));
 	}
 
 	@Test
-	void testDeleteProduct(){
+	void testUpdateProduct(){
 		Product productSentForUpdate = Product.builder().withId("1234").withDescription("temp").withName("tempName").withPrice("12").withQuantity("12").build();
 
 		//Set mock for findById and save
@@ -58,7 +62,24 @@ class RunTest {
 		Mockito.when(productsRepository.save(productSentForUpdate)).thenReturn(productSentForUpdate);
 
 		Product updatedProductReturn = productResource.updateProduct(productSentForUpdate,"1234");
-		Assertions.assertThat(updatedProductReturn).isEqualTo(productSentForUpdate);
+		assertThat(updatedProductReturn).isEqualTo(productSentForUpdate);
+
+	}
+
+	@Test
+	void testUpdateProductNoProductFound(){
+		Product product = Product.builder().withId("1234").withDescription("temp").withName("tempName").withPrice("12").withQuantity("12").build();
+		Mockito.when(productsRepository.findById("1234")).thenReturn(null);
+
+		//when
+		Throwable thrown = catchThrowable(() -> {
+			productResource.updateProduct(product,"1234");
+		});
+
+		// then
+		assertThat(thrown)
+				.isInstanceOf(ProductNotFoundException.class)
+				.hasMessageContaining("Product can not be found with Id: 1234 Can not update");
 
 	}
 }

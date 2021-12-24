@@ -51,7 +51,7 @@ public class ProductResource {
     }
 
     @PutMapping("/product/{id}")
-    public Product updateProduct(@RequestBody Product productToBeUpdated, @PathVariable String id)  {
+    public Product updateProduct(@RequestBody Product productToBeUpdated, @PathVariable String id)    {
         log.debug("Update product with details: "+ productToBeUpdated);
         Optional<Product> productOriginal = Optional.ofNullable(productsRepository.findById(id));
         if (productOriginal.isEmpty()){
