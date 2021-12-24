@@ -10,11 +10,11 @@ pipeline {
 //         }
 
         stage('Sonar Analysis'){
-            when{
-                expression{
-                    return params.SONAR_STAGE
-                }
-            }
+//             when{
+//                 expression{
+//                     return params.SONAR_STAGE
+//                 }
+//             }
             steps {
                 withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'sonarToken')]) {
                     sh ('mvn verify --no-transfer-progress org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=yantraCloudApp_products-api -Dsonar.login=$sonarToken')
