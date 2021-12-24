@@ -2,15 +2,15 @@ pipeline {
     agent any
     stages{
 
-            stage('temp'){
+    stage('temp'){
 
-                steps {
-                    echo params.SONAR_STAGE
-                                        echo params.RELEASE_IMAGE
-                }
-            }
+        steps {
+            echo params.SONAR_STAGE
+                                echo params.RELEASE_IMAGE
+        }
+    }
 
-    params.SONAR_STAGE
+
         stage('Sonar Analysis'){
             when{
                 expression{
