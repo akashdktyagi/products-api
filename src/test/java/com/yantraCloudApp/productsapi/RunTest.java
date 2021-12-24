@@ -29,6 +29,7 @@ class RunTest {
 		productsRepository = Mockito.mock(ProductsRepository.class);
 		this.productResource = new ProductResource(productsRepository);
 	}
+
 	@Test
 	void testCreateProduct() {
 		Product product = Product.builder().withId("1").withDescription("temp").withName("tempName").withPrice("12").withQuantity("12").build();

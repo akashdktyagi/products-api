@@ -34,7 +34,7 @@ class RunIT {
 	@Test
 	void testInsertProductEndPoint() throws Exception {
 		Product product = Product.builder().withId("1").withDescription("temp").withName("tempName").withPrice("12").withQuantity("12").build();
-		MvcResult mvcResult = mockMvc.perform(post("/insertProduct", 42L)
+		MvcResult mvcResult = mockMvc.perform(post("/product", 42L)
 				.contentType("application/json")
 				.content(objectMapper.writeValueAsString(product)))
 				.andExpect(status().isOk())
