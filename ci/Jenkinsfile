@@ -2,19 +2,19 @@ pipeline {
     agent any
     stages{
 
-//         stage('temp'){
-//             steps {
-//                 echo "$SONAR_STAGE"
-//                 echo "$RELEASE_IMAGE"
-//             }
-//         }
+        stage('temp'){
+            steps {
+                echo "$SONAR_ONLY"
+                echo "$RELEASE_IMAGE"
+            }
+        }
 
         stage('Sonar Analysis'){
-//             when{
-//                 expression{
-//                     return params.SONAR_STAGE
-//                 }
-//             }
+            when{
+                expression{
+                    return params.SONAR_ONLY
+                }
+            }
             steps {
                 withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'sonarToken')]) {
                     sh ('mvn verify --no-transfer-progress org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=yantraCloudApp_products-api -Dsonar.login=$sonarToken')
