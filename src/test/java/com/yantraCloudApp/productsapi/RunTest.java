@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 import static org.mockito.Mockito.*;
 import static org.mockito.AdditionalAnswers.*;
@@ -27,7 +26,7 @@ class RunTest {
 	@BeforeEach
 	public void setUp(){
 		productsRepository = Mockito.mock(ProductsRepository.class);
-		this.productResource = new ProductResource(productsRepository);
+		productResource = new ProductResource(productsRepository);
 	}
 
 	@Test
@@ -50,4 +49,16 @@ class RunTest {
 		Assertions.assertThat(resultList).isEqualTo(Lists.newArrayList(product));
 	}
 
+	@Test
+	void testDeleteProduct(){
+		Product productSentForUpdate = Product.builder().withId("1234").withDescription("temp").withName("tempName").withPrice("12").withQuantity("12").build();
+
+		//Set mock for findById and save
+		Mockito.when(productsRepository.findById("1234")).thenReturn(productSentForUpdate);
+		Mockito.when(productsRepository.save(productSentForUpdate)).thenReturn(productSentForUpdate);
+
+		Product updatedProductReturn = productResource.updateProduct(productSentForUpdate,"1234");
+		Assertions.assertThat(updatedProductReturn).isEqualTo(productSentForUpdate);
+
+	}
 }

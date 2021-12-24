@@ -35,8 +35,7 @@ public class ProductResource {
     public Product createProductMongo(@RequestBody Product product){
         log.debug("Create product: "+ product);
         product.setId(generateUUID());
-        Product p = productsRepository.insert(product);
-        return p;
+        return productsRepository.insert(product);
     }
 
     @DeleteMapping("/product/{id}")
@@ -52,7 +51,7 @@ public class ProductResource {
     }
 
     @PutMapping("/product/{id}")
-    public Product updateProduct(@RequestBody Product productToBeUpdated, @PathVariable String id) throws Exception {
+    public Product updateProduct(@RequestBody Product productToBeUpdated, @PathVariable String id)  {
         log.debug("Update product with details: "+ productToBeUpdated);
         Optional<Product> productOriginal = Optional.ofNullable(productsRepository.findById(id));
         if (productOriginal.isEmpty()){
@@ -60,10 +59,7 @@ public class ProductResource {
         }
         productToBeUpdated.setId(id);
 
-        Product p = productsRepository.save(productToBeUpdated);
-        return p;
-
-
+        return productsRepository.save(productToBeUpdated);
     }
 
     @GetMapping("/product")
