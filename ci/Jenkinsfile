@@ -2,20 +2,17 @@ pipeline {
     agent any
     stages{
 
-    stage('temp'){
-
-        steps {
-            echo params.SONAR_STAGE
-                                echo params.RELEASE_IMAGE
+        stage('temp'){
+            steps {
+                echo "$SONAR_STAGE"
+                echo "$RELEASE_IMAGE"
+            }
         }
-    }
-
 
         stage('Sonar Analysis'){
             when{
                 expression{
-
-                    return params.SONAR_STAGE==true
+                    return params.SONAR_STAGE
                 }
             }
             steps {
@@ -29,7 +26,7 @@ pipeline {
         stage('Build and Generate Docker Image') {
             when{
                 expression{
-                    return params.RELEASE_IMAGE==true
+                    return params.RELEASE_IMAGE
                 }
             }
             steps {
