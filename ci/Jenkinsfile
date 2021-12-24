@@ -4,6 +4,7 @@ pipeline {
         stage('Sonar Analysis'){
             when{
                 expression{
+                    echo "$SONAR_STAGE"
                     return params.SONAR_STAGE==true
                 }
             }
