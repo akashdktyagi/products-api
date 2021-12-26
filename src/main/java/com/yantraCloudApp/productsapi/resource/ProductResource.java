@@ -39,14 +39,14 @@ public class ProductResource {
     }
 
     @DeleteMapping("/product/{id}")
-    public void deleteProduct(@PathVariable String id) throws Exception {
+    public Product deleteProduct(@PathVariable String id){
         log.debug("Delete product with id: "+ id);
 
         Optional<Product> product = Optional.ofNullable(productsRepository.findById(id));
         if (product.isEmpty()){
-            throw new ProductNotFoundException("Product can not be found with Id: " + id);
+            throw new ProductNotFoundException("Product can not be found with Id: " + id + " Can not delete.");
         }
-        productsRepository.deleteById(id);
+        return productsRepository.deleteById(id);
 
     }
 

@@ -82,4 +82,33 @@ class RunTest {
 				.hasMessageContaining("Product can not be found with Id: 1234 Can not update");
 
 	}
+
+	@Test
+	void testDeleteProduct(){
+		String id = "1234";
+		Product product = Product.builder().withId("1234").withDescription("temp").withName("tempName").withPrice("12").withQuantity("12").build();
+
+		//Set mock for findById and delete
+		Mockito.when(productsRepository.findById("1234")).thenReturn(product);
+		Mockito.when(productsRepository.deleteById("1234")).thenReturn(product);
+		Product productDeleted = productResource.deleteProduct(id);
+
+		Assertions.assertThat(product).isEqualTo(productDeleted);
+	}
+
+	@Test
+	void deleteProductExceptionProductNotFound(){
+		Mockito.when(productsRepository.findById("1234")).thenReturn(null);
+
+		//when
+		Throwable thrown = catchThrowable(() -> {
+			productResource.deleteProduct("1234");
+		});
+
+		// then
+		assertThat(thrown)
+				.isInstanceOf(ProductNotFoundException.class)
+				.hasMessageContaining("Product can not be found with Id: 1234 Can not delete");
+
+	}
 }
