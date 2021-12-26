@@ -44,7 +44,7 @@ class RunIT {
 		Product queryProductAgain = productsRepository.findById(serverResponse.getId());
 		Assertions.assertThat(serverResponse).isNotNull();
 		Assertions.assertThat(queryProductAgain).isNotNull();
-		Assertions.assertThat(serverResponse).isEqualTo(queryProductAgain);
+		Assertions.assertThat(serverResponse.toString()).isEqualTo(queryProductAgain.toString());
 	}
 
 
