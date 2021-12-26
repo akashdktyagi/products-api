@@ -6,11 +6,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 
 public interface ProductsRepository extends MongoRepository<Product,Integer> {
-//
-//    public Product findByFirstName(String firstName);
-//    public List<Product> findByLastName(String lastName);
-
-      public Product findById(String productID);
-      public Product deleteById(String productID);
-
+      Product findById(String productID);
+      Product deleteById(String productID);
 }

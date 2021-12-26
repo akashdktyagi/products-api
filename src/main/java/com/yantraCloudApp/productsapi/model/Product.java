@@ -2,17 +2,17 @@ package com.yantraCloudApp.productsapi.model;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.annotation.Id;
 
 @Slf4j
-@Data
 @Builder(setterPrefix = "with")
 public class Product {
-    @Id
+    @Id @Setter @Getter
     String id;
     String title;
-//    Integer userID;
     String name;
     String description;
     String price;
@@ -20,9 +20,6 @@ public class Product {
     String ratings;
     String reviews;
 
-//    isAddedToCart: false,
-//    isAddedBtn: false,
-//    isFavourite: false,
 }
 
 
