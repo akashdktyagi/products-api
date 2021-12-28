@@ -19,15 +19,15 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/")
 @Log4j2
-public class ProductResource {
+public class ProductRestController {
 
     private ProductsRepository productsRepository;
 
-    public ProductResource(ProductsRepository productsRepository){
+    public ProductRestController(ProductsRepository productsRepository){
         this.productsRepository = productsRepository;
     }
     @PostMapping("/product")
-    public Product createProductMongo(@RequestBody Product product){
+    public Product createProductMongo(@Valid @RequestBody Product product){
         log.debug("Create product: "+ product);
         product.setId(generateUUID());
         return productsRepository.insert(product);
@@ -46,7 +46,7 @@ public class ProductResource {
     }
 
     @PutMapping("/product/{id}")
-    public Product updateProduct(@RequestBody Product productToBeUpdated, @PathVariable String id)    {
+    public Product updateProduct(@Valid @RequestBody Product productToBeUpdated, @PathVariable String id)    {
         log.debug("Update product with details: "+ productToBeUpdated);
         Optional<Product> productOriginal = Optional.ofNullable(productsRepository.findById(id));
         if (productOriginal.isEmpty()){

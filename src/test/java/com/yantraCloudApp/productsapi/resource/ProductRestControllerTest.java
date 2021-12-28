@@ -17,22 +17,20 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.ThrowableAssert.catchThrowable;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.any;
 
-//@SpringBootTest==> Do not need this in these tests
-@Slf4j
-@ExtendWith(MockitoExtension.class)
-class ProductResourceTest {
+// There is another way of using Mockito.
+// By extending MockitoExtension in junit we can use Mockito @Mock and @InjectMocks annotation
+class ProductRestControllerTest {
 
-    ProductResource productResource;
+    ProductRestController productRestController;
     ProductsRepository productsRepository;
 
     @BeforeEach
     public void setUp(){
         productsRepository = Mockito.mock(ProductsRepository.class);
-        productResource = new ProductResource(productsRepository);
+        productRestController = new ProductRestController(productsRepository);
     }
 
     @Test
@@ -40,7 +38,7 @@ class ProductResourceTest {
         Product product = Product.builder().withId("1").withDescription("temp").withName("tempName").withPrice("12").withQuantity("12").build();
         Mockito.when(productsRepository.insert(any(Product.class))).then(returnsFirstArg());
 
-        Product result = productResource.createProductMongo(product);
+        Product result = productRestController.createProductMongo(product);
         assertThat(result).isNotNull();
         assertThat(result).isEqualTo(product);
     }
@@ -53,7 +51,7 @@ class ProductResourceTest {
         //Set mock for findById and delete
         Mockito.when(productsRepository.findById("1234")).thenReturn(product);
         Mockito.when(productsRepository.deleteById("1234")).thenReturn(product);
-        Product productDeleted = productResource.deleteProduct(id);
+        Product productDeleted = productRestController.deleteProduct(id);
 
         Assertions.assertThat(product).isEqualTo(productDeleted);
     }
@@ -66,7 +64,7 @@ class ProductResourceTest {
         Mockito.when(productsRepository.findById("1234")).thenReturn(productSentForUpdate);
         Mockito.when(productsRepository.save(productSentForUpdate)).thenReturn(productSentForUpdate);
 
-        Product updatedProductReturn = productResource.updateProduct(productSentForUpdate,"1234");
+        Product updatedProductReturn = productRestController.updateProduct(productSentForUpdate,"1234");
         assertThat(updatedProductReturn).isEqualTo(productSentForUpdate);
     }
 
@@ -75,7 +73,7 @@ class ProductResourceTest {
         Product product = Product.builder().withId("1").withDescription("temp").withName("tempName").withPrice("12").withQuantity("12").build();
         Mockito.when(productsRepository.findAll()).thenReturn(Lists.newArrayList(product));
 
-        List<Product> resultList = productResource.getProduct("3",1,2);
+        List<Product> resultList = productRestController.getProduct("3",1,2);
         assertThat(resultList).isNotNull();
         assertThat(resultList).isEqualTo(Lists.newArrayList(product));
     }
@@ -83,7 +81,7 @@ class ProductResourceTest {
     @Test
     void generateUUID() {
         Throwable throwable = catchThrowable(
-                ()->UUID.fromString(productResource.generateUUID())
+                ()->UUID.fromString(productRestController.generateUUID())
         );
         assertThat(throwable).doesNotThrowAnyException();
 
@@ -96,7 +94,7 @@ class ProductResourceTest {
 
         //when
         Throwable thrown = catchThrowable(() -> {
-            productResource.updateProduct(product,"1234");
+            productRestController.updateProduct(product,"1234");
         });
 
         // then
@@ -113,7 +111,7 @@ class ProductResourceTest {
 
         //when
         Throwable thrown = catchThrowable(() -> {
-            productResource.deleteProduct("1234");
+            productRestController.deleteProduct("1234");
         });
 
         // then
