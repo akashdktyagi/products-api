@@ -7,6 +7,8 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
@@ -20,6 +22,10 @@ import java.util.UUID;
 @RequestMapping("/")
 @Log4j2
 public class ProductRestController {
+
+    @Value("${new_config.token}")
+    private String token;
+
 
     private ProductsRepository productsRepository;
 
@@ -69,6 +75,8 @@ public class ProductRestController {
             @Min(0) @Max(50) @Parameter(in = ParameterIn.QUERY, description = "maximum number of records to return" ,schema=@Schema(allowableValues={  }, maximum="50"))
             @Valid @RequestParam(value = "limit", required = false) Integer limit
     ){
+
+        log.debug("Akash Check new config: " + token);
         List<Product> productList =  productsRepository.findAll();
         log.debug(productList);
         return productList;

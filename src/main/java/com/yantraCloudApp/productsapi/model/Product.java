@@ -8,9 +8,10 @@ import javax.validation.constraints.NotNull;
 
 @Slf4j
 @Builder(setterPrefix = "with")
+@Getter @Setter
 @ToString
 public class Product {
-    @Id @Setter @Getter @NotNull
+    @Id @NotNull
     String id;
     String title;
     String name;
