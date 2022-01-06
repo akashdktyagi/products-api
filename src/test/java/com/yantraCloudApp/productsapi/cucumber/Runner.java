@@ -7,11 +7,12 @@ import org.testng.annotations.DataProvider;
 
 @CucumberOptions(
         features = "classpath:features",
-        glue = "cucumber",
+        glue = "com.yantraCloudApp.productsapi.cucumber.stepdefs",
         plugin = {"pretty","summary",
                 "html:target/cucumber-reports.html",
                 "json:target/json_result.json"
         },
+        tags = "",
         dryRun = false
 )
 public class Runner extends AbstractTestNGCucumberTests {
