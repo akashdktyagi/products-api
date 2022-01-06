@@ -6,7 +6,7 @@ import io.cucumber.testng.CucumberOptions;
 import org.testng.annotations.DataProvider;
 
 @CucumberOptions(
-        features = "classpath:features",
+        features = "classpath:features/Products.feature",
         glue = "com.yantraCloudApp.productsapi.cucumber.stepdefs",
         plugin = {"pretty","summary",
                 "html:target/cucumber-reports.html",
