@@ -8,6 +8,8 @@ import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
@@ -25,15 +27,15 @@ public class ProductRestController {
     @Value("${new_config.token}")
     private String token;
 
-
     private ProductsRepository productsRepository;
 
     public ProductRestController(ProductsRepository productsRepository){
         this.productsRepository = productsRepository;
     }
     @PostMapping("/product")
-    public Product createProductMongo(@Valid @RequestBody Product product){
+    public Product createProductMongo( @Valid @RequestBody Product product){
         log.debug("Create product: "+ product);
+//        log.debug("name: " +  principal.getAttribute("name"));
         product.setId(generateUUID());
         return productsRepository.insert(product);
     }

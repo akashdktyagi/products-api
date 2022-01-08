@@ -1,0 +1,15 @@
+auth0:
+  audience: http://localhost:9095/products
+new_config:
+  token: akash
+server:
+  port: '9095'
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://dev-j8ajv706.us.auth0.com/
+  data:
+    mongodb:
+      uri: mongodb+srv://root:root@yantracloudappcluster.gn3di.mongodb.net/yantraCloudAppDB?retryWrites=true&w=majority

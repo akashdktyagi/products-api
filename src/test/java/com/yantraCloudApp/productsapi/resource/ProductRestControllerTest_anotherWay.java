@@ -13,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.List;
 import java.util.UUID;
@@ -28,8 +29,11 @@ import static org.mockito.ArgumentMatchers.any;
 @ExtendWith(MockitoExtension.class)
 class ProductRestControllerTest_anotherWay {
 
+    OAuth2User principal;
+
     @InjectMocks
     ProductRestController productRestController;
+
 
     @Mock
     ProductsRepository productsRepository;

@@ -3,14 +3,12 @@ package com.yantraCloudApp.productsapi.resource;
 import com.yantraCloudApp.productsapi.exception.ProductNotFoundException;
 import com.yantraCloudApp.productsapi.model.Product;
 import com.yantraCloudApp.productsapi.repository.ProductsRepository;
-import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.List;
 import java.util.UUID;
@@ -23,6 +21,8 @@ import static org.mockito.ArgumentMatchers.any;
 // There is another way of using Mockito.
 // By extending MockitoExtension in junit we can use Mockito @Mock and @InjectMocks annotation
 class ProductRestControllerTest {
+
+    OAuth2User principal;
 
     ProductRestController productRestController;
     ProductsRepository productsRepository;
