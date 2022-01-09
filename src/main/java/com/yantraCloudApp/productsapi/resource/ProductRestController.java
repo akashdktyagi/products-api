@@ -9,8 +9,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
@@ -66,23 +64,37 @@ public class ProductRestController {
         return productsRepository.save(productToBeUpdated);
     }
 
-    @GetMapping("/product")
-    public List<Product> getProduct(
-            @Parameter(in = ParameterIn.QUERY, description = "pass an optional search string for looking up product with Product Name as" , schema=@Schema())
-            @Valid
-            @RequestParam(value = "withProductNameAs", required = false)
-            String name,
-            @Min(0)@Parameter(in = ParameterIn.QUERY, description = "number of records to skip for pagination" ,schema=@Schema(allowableValues={  }))
-            @Valid
-            @RequestParam(value = "skip", required = false) Integer skip,
-            @Min(0) @Max(50) @Parameter(in = ParameterIn.QUERY, description = "maximum number of records to return" ,schema=@Schema(allowableValues={  }, maximum="50"))
-            @Valid @RequestParam(value = "limit", required = false) Integer limit
-    ){
+//    @GetMapping("/product")
+//    public List<Product> getProduct(
+//            @Parameter(in = ParameterIn.QUERY, description = "pass an optional search string for looking up product with Product Name as" , schema=@Schema())
+//            @Valid
+//            @RequestParam(value = "withProductNameAs", required = false)
+//            String name,
+//            @Min(0)@Parameter(in = ParameterIn.QUERY, description = "number of records to skip for pagination" ,schema=@Schema(allowableValues={  }))
+//            @Valid
+//            @RequestParam(value = "skip", required = false) Integer skip,
+//            @Min(0) @Max(50) @Parameter(in = ParameterIn.QUERY, description = "maximum number of records to return" ,schema=@Schema(allowableValues={  }, maximum="50"))
+//            @Valid @RequestParam(value = "limit", required = false) Integer limit
+//    ){
+//
+//        log.debug("Akash Check new config: " + token);
+//        List<Product> productList =  productsRepository.findAll();
+//        log.debug(productList);
+//        return productList;
+//    }
 
-        log.debug("Akash Check new config: " + token);
+    @GetMapping("/product")
+    public List<Product> getProduct(){
         List<Product> productList =  productsRepository.findAll();
         log.debug(productList);
         return productList;
+    }
+
+    @GetMapping("/product/{id}")
+    public Product getProductById(@Valid  @PathVariable String id){
+        Product product =  productsRepository.findById(id);
+        log.debug(product);
+        return product;
     }
 
     public String generateUUID(){

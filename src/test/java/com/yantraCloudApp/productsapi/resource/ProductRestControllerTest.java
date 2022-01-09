@@ -73,7 +73,7 @@ class ProductRestControllerTest {
         Product product = Product.builder().withId("1").withDescription("temp").withName("tempName").withPrice("12").withQuantity("12").build();
         Mockito.when(productsRepository.findAll()).thenReturn(Lists.newArrayList(product));
 
-        List<Product> resultList = productRestController.getProduct("3",1,2);
+        List<Product> resultList = productRestController.getProduct();
         assertThat(resultList).isNotNull();
         assertThat(resultList).isEqualTo(Lists.newArrayList(product));
     }

@@ -2,6 +2,7 @@ package com.yantraCloudApp.productsapi.security;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -21,8 +22,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+//                .mvcMatchers("/product").authenticated()
+                .mvcMatchers("/product/*").authenticated()
 //                .mvcMatchers("/product/*").authenticated()
-                .mvcMatchers("/product").authenticated()
 //                .mvcMatchers("/api/private").permitAll()
 //                .mvcMatchers("/api/private-scoped").hasAuthority("SCOPE_read:messages")
 //                .and().cors()
