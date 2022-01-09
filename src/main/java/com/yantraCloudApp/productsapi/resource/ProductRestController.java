@@ -6,6 +6,7 @@ import com.yantraCloudApp.productsapi.repository.ProductsRepository;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -22,6 +23,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/")
 @Log4j2
+@SecurityRequirement(name="bearerAuth")
 public class ProductRestController {
 
     @Value("${new_config.token}")
