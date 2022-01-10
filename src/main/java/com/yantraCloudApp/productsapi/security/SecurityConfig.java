@@ -22,8 +22,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-//                .mvcMatchers("/product").authenticated()
-                .mvcMatchers("/product/*").authenticated()
+                .mvcMatchers(HttpMethod.POST,"/product/*").authenticated()
+                .mvcMatchers(HttpMethod.DELETE,"/product/*").authenticated()
+                .mvcMatchers(HttpMethod.PUT,"/product/*").authenticated()
+                .mvcMatchers(HttpMethod.GET,"/product/*").permitAll()
+                .mvcMatchers(HttpMethod.GET,"/product").permitAll()
 //                .mvcMatchers("/product/*").authenticated()
 //                .mvcMatchers("/api/private").permitAll()
 //                .mvcMatchers("/api/private-scoped").hasAuthority("SCOPE_read:messages")
