@@ -12,6 +12,7 @@ import io.cucumber.java.en.When;
 import io.cucumber.spring.ScenarioScope;
 import org.assertj.core.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
@@ -24,9 +25,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ScenarioScope
 public class StepDefs {
 
+    @Value("${token}")
+    String token;
+
     String createEndPoint = "/product";
-    String editEndPoint = "/product/{id}";
-    String deleteEndPoint = "/product/{id}";
+    String editEndPoint = "/product/%s";
+    String deleteEndPoint = "/product/%s";
     String getEndPoint = "/product";
 
     @Autowired
@@ -69,6 +73,7 @@ public class StepDefs {
     public void iHitTheApiEndPointForCreateAndWithMethodAsPost() throws Exception {
         resultActions = mockMvc.perform(post(createEndPoint, 42L)
                 .contentType("application/json")
+                .header("Authorization","Bearer " +  token)
                 .content(objectMapper.writeValueAsString(product)))
                 .andExpect(status().is(200));
     }
@@ -84,6 +89,7 @@ public class StepDefs {
                 .build();
 
         resultActions = mockMvc.perform(put(String.format(editEndPoint,product.getId()), 42L)
+                .header("Authorization","Bearer " +  token)
                 .contentType("application/json")
                 .content(objectMapper.writeValueAsString(editedProduct)))
                 .andExpect(status().is(200));
