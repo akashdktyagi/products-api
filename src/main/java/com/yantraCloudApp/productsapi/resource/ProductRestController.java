@@ -21,7 +21,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/")
 @Log4j2
-@SecurityRequirement(name="bearerAuth")
+//@SecurityRequirement(name="bearerAuth")
 public class ProductRestController {
 
     @Value("${new_config.token}")
