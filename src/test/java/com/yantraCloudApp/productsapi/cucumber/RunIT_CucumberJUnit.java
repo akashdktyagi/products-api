@@ -1,9 +1,9 @@
 package com.yantraCloudApp.productsapi.cucumber;
 
 
-import io.cucumber.testng.AbstractTestNGCucumberTests;
-import io.cucumber.testng.CucumberOptions;
-import org.testng.annotations.DataProvider;
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
+import org.junit.runner.RunWith;
 
 @CucumberOptions(
         features = "classpath:features/Products.feature",
@@ -15,12 +15,9 @@ import org.testng.annotations.DataProvider;
         tags = "",
         dryRun = false
 )
-public class Runner extends AbstractTestNGCucumberTests {
+@RunWith(Cucumber.class)
+public class RunIT_CucumberJUnit  {
 
-    @Override
-    @DataProvider(parallel = true)
-    public Object[][] scenarios() {
-        return super.scenarios();
-    }
+
 
 }
