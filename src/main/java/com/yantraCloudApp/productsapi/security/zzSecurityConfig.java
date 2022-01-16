@@ -3,15 +3,15 @@ package com.yantraCloudApp.productsapi.security;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
-import org.springframework.security.oauth2.core.OAuth2TokenValidator;
-import org.springframework.security.oauth2.jwt.*;
+//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+//import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+//import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
+//import org.springframework.security.oauth2.core.OAuth2TokenValidator;
+//import org.springframework.security.oauth2.jwt.*;
 
 //@EnableWebSecurity
-public class SecurityConfig {//extends WebSecurityConfigurerAdapter {
+public class zzSecurityConfig {//extends WebSecurityConfigurerAdapter {
 
 //    @Value("${auth0.audience}")
 //    private String audience;
@@ -39,7 +39,7 @@ public class SecurityConfig {//extends WebSecurityConfigurerAdapter {
 //        NimbusJwtDecoder jwtDecoder = (NimbusJwtDecoder)
 //                JwtDecoders.fromOidcIssuerLocation(issuer);
 //
-//        OAuth2TokenValidator<Jwt> audienceValidator = new AudienceValidator(audience);
+//        OAuth2TokenValidator<Jwt> audienceValidator = new zzAudienceValidator(audience);
 //        OAuth2TokenValidator<Jwt> withIssuer = JwtValidators.createDefaultWithIssuer(issuer);
 //        OAuth2TokenValidator<Jwt> withAudience = new DelegatingOAuth2TokenValidator<>(withIssuer, audienceValidator);
 //

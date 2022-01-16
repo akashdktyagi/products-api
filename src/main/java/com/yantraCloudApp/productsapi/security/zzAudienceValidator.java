@@ -1,14 +1,14 @@
-package com.yantraCloudApp.productsapi.security;// src/main/java/com/auth0/example/security/AudienceValidator.java
+package com.yantraCloudApp.productsapi.security;// src/main/java/com/auth0/example/security/zzAudienceValidator.java
 
-import org.springframework.security.oauth2.core.OAuth2Error;
-import org.springframework.security.oauth2.core.OAuth2TokenValidator;
-import org.springframework.security.oauth2.core.OAuth2TokenValidatorResult;
-import org.springframework.security.oauth2.jwt.Jwt;
+//import org.springframework.security.oauth2.core.OAuth2Error;
+//import org.springframework.security.oauth2.core.OAuth2TokenValidator;
+//import org.springframework.security.oauth2.core.OAuth2TokenValidatorResult;
+//import org.springframework.security.oauth2.jwt.Jwt;
 
-class AudienceValidator{ //implements OAuth2TokenValidator<Jwt> {
+class zzAudienceValidator { //implements OAuth2TokenValidator<Jwt> {
 //    private final String audience;
 //
-//    AudienceValidator(String audience) {
+//    zzAudienceValidator(String audience) {
 //        this.audience = audience;
 //    }
 //

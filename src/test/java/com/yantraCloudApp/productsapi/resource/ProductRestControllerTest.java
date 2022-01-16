@@ -8,7 +8,7 @@ import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.security.oauth2.core.user.OAuth2User;
+//import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.List;
 import java.util.UUID;
@@ -22,7 +22,7 @@ import static org.mockito.ArgumentMatchers.any;
 // By extending MockitoExtension in junit we can use Mockito @Mock and @InjectMocks annotation
 class ProductRestControllerTest {
 
-    OAuth2User principal;
+//    OAuth2User principal;
 
     ProductRestController productRestController;
     ProductsRepository productsRepository;
