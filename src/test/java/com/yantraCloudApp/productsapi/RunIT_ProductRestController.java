@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.AdditionalAnswers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,6 +27,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(ProductRestController.class)
 class RunIT_ProductRestController {
+
+	@Value("${token}")
+	String token;
 
 	@Autowired
 	MockMvc mockMvc;
@@ -48,6 +52,7 @@ class RunIT_ProductRestController {
 	void createNewProduct() throws Exception {
 		Product product = Product.builder().withId("1").withDescription("temp").withName("tempName").withPrice("12").withQuantity("12").build();
 		mockMvc.perform(post("/product", 42L)
+				.header("Authorization","Bearer " +  token)
 				.contentType("application/json")
 				.content(objectMapper.writeValueAsString(product)))
 				.andExpect(status().isOk())

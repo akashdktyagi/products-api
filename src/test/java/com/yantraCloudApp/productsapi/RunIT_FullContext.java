@@ -9,6 +9,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,6 +29,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class RunIT_FullContext {
 
+	@Value("${token}")
+	String token;
+
 	@Autowired
 	MockMvc mockMvc;
 
@@ -40,7 +44,9 @@ class RunIT_FullContext {
 	@Test
 	void createNewProduct() throws Exception {
 		Product product = Product.builder().withId("1").withDescription("temp").withName("tempName").withPrice("12").withQuantity("12").build();
+
 		MvcResult mvcResult = mockMvc.perform(post("/product", 42L)
+				.header("Authorization","Bearer " +  token)
 				.contentType("application/json")
 				.content(objectMapper.writeValueAsString(product)))
 				.andExpect(status().isOk())
