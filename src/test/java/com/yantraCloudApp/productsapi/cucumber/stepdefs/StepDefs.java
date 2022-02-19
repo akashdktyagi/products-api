@@ -13,6 +13,8 @@ import io.cucumber.spring.ScenarioScope;
 import org.assertj.core.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
@@ -110,6 +112,11 @@ public class StepDefs {
 
     @Then("the product is successfully edited")
     public void theProductIsSuccessfullyEditedWithStatusCodeAs201() throws Exception {
+
+    }
+
+    @Given("I am able to mock the DB")
+    public void iAmAbleToMockTheDB(){
 
     }
 

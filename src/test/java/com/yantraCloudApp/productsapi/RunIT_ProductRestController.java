@@ -45,7 +45,6 @@ class RunIT_ProductRestController {
 		Product product = Product.builder().withId("1").withDescription("temp").withName("tempName").withPrice("12").withQuantity("12").build();
 		Mockito.when(productsRepository.insert(Mockito.any(Product.class))).then(AdditionalAnswers.returnsFirstArg());
 		Mockito.when(productsRepository.findById(Mockito.any(String.class))).thenReturn(product);
-
 	}
 
 	@Test

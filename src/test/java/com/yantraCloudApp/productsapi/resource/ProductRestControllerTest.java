@@ -51,6 +51,7 @@ class ProductRestControllerTest {
         //Set mock for findById and delete
         Mockito.when(productsRepository.findById("1234")).thenReturn(product);
         Mockito.when(productsRepository.deleteById("1234")).thenReturn(product);
+
         Product productDeleted = productRestController.deleteProduct(id);
 
         Assertions.assertThat(product).isEqualTo(productDeleted);
