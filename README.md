@@ -58,3 +58,5 @@ Products to sell
         ObjectMapper objectMapper;
     ```
 * Note: There is no Spring Boot Context in Unit Test. @SpringBootTest annotation brings spring boot context and spring boot capabilities like auto-wiring etc.
+
+* Mongo DB Test Containers: https://rieckpil.de/mongodb-testcontainers-setup-for-datamongotest/

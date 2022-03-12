@@ -12,3 +12,6 @@ Feature: As a User, I am able to create new product
     When I hit the api end point for edit and with method as put
     Then the product is successfully edited
 
+  Scenario: I am able to mock the DB
+    Given I am able to mock the DB
+

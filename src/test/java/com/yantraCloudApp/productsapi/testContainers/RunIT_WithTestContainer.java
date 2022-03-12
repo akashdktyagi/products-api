@@ -1,32 +1,23 @@
-package com.yantraCloudApp.productsapi;
+package com.yantraCloudApp.productsapi.testContainers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yantraCloudApp.productsapi.model.Product;
 import com.yantraCloudApp.productsapi.repository.ProductsRepository;
-import com.yantraCloudApp.productsapi.resource.ProductRestController;
 import org.assertj.core.api.Assertions;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.AdditionalAnswers;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import java.util.UUID;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(ProductRestController.class)
-class RunIT_ProductRestController {
+@SpringBootTest
+@AutoConfigureMockMvc
+class RunIT_WithTestContainer {
 
 	@Value("${token}")
 	String token;
@@ -37,28 +28,25 @@ class RunIT_ProductRestController {
 	@Autowired
 	ObjectMapper objectMapper;
 
-	@MockBean
+	@Autowired
 	ProductsRepository productsRepository;
-
-	@BeforeEach
-	public void setUp(){
-		Product product = Product.builder().withId("1").withDescription("temp").withName("tempName").withPrice("12").withQuantity("12").build();
-		Mockito.when(productsRepository.insert(Mockito.any(Product.class))).then(AdditionalAnswers.returnsFirstArg());
-		Mockito.when(productsRepository.findById(Mockito.any(String.class))).thenReturn(product);
-	}
 
 	@Test
 	void createNewProduct() throws Exception {
 		Product product = Product.builder().withId("1").withDescription("temp").withName("tempName").withPrice("12").withQuantity("12").build();
-		mockMvc.perform(post("/product", 42L)
+
+		MvcResult mvcResult = mockMvc.perform(post("/product", 42L)
 				.header("Authorization","Bearer " +  token)
 				.contentType("application/json")
 				.content(objectMapper.writeValueAsString(product)))
 				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.id").isNotEmpty())
-//				.andExpect(jsonPath("$.id").value(Matchers.instanceOf(UUID.class)))
 				.andReturn();
 
+		Product serverResponse = objectMapper.readValue(mvcResult.getResponse().getContentAsString(),Product.class);
+		Product queryProductAgain = productsRepository.findById(serverResponse.getId());
+		Assertions.assertThat(serverResponse).isNotNull();
+		Assertions.assertThat(queryProductAgain).isNotNull();
+		Assertions.assertThat(serverResponse.toString()).isEqualTo(queryProductAgain.toString());
 	}
 
 //	@Test
