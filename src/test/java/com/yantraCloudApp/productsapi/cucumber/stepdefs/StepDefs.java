@@ -11,6 +11,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.spring.ScenarioScope;
 import org.assertj.core.api.Assertions;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -52,6 +53,7 @@ public class StepDefs {
     @Before // this is cucumber before not Junit before
     public void setUp(Scenario scenario){
         this.scenario = scenario;
+
     }
 
     @Given("I want to create a new product with all mandatory fields")
